@@ -4,6 +4,8 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey, Integer, Float
 from sqlalchemy.orm import relationship
 import os
+from models import storage
+from models.review import Review
 
 storage_type = os.getenv("HBNB_TYPE_STORAGE")
 
@@ -21,24 +23,13 @@ class Place(BaseModel, Base):
     price_by_night = Column(Integer, nullable=False, default=0)
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
+    reviews = relationship("Review", back_populates="place", cascade="delete")
     amenity_ids = []
 
-    if  storage_type == 'db':
-        reviews = relationship("Review", back_populates="place", cascade="all",
-                               passive_deletes=True)
-    else:
-        @property
+    if os.getenv("HBNB_TYPE_STORAGE", None) != "db":
         def reviews(self):
-            """Return the list of review instances with state.id equal to
-            current State.id for filestorage
-            """
-            from models import storage
-            from models.review import Review
-
             review_list = []
-            all_review = storage.all(Review)
-
-            for review in all_review.values():
+            for review in list(storage.all(Review).values()):
                 if review.place_id == self.id:
                     review_list.append(review)
             return review_list
