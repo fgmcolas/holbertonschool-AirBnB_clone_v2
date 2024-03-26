@@ -35,4 +35,4 @@ class Place(BaseModel, Base):
                     review_list.append(review)
             return review_list
     else:
-        reviews = relationship("Review", backref="place", cascade="delete")
+        reviews = relationship("Review", back_populates="place", cascade="delete")
