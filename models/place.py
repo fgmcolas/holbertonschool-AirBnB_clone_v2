@@ -3,6 +3,9 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey, Integer, Float
 from sqlalchemy.orm import relationship
+import os
+
+storage_type = os.getenv("HBNB_TYPE_STORAGE")
 
 
 class Place(BaseModel, Base):
@@ -19,3 +22,23 @@ class Place(BaseModel, Base):
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
     amenity_ids = []
+
+    if  storage_type == 'db':
+        reviews = relationship("Review", back_populates="place", cascade="all",
+                               passive_deletes=True)
+    else:
+        @property
+        def reviews(self):
+            """Return the list of review instances with state.id equal to
+            current State.id for filestorage
+            """
+            from models import storage
+            from models.review import Review
+
+            review_list = []
+            all_review = storage.all(Review)
+
+            for review in all_review.values():
+                if review.place_id == self.id:
+                    review_list.append(review)
+            return review_list
