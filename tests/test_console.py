@@ -1,9 +1,22 @@
 #!/usr/bin/python3
+""" Unittest for the console """
+from console import HBNBCommand
 import unittest
+import sys
+import io
 
 
-class testconsole(unittest.TestCase):
-    """ unitest file console"""
+class TestConsole(unittest.TestCase):
+    """ Test cases for HBNBCommand class """
 
-    def fileExist(self):
-        pass
+    def setUp(self):
+        self.console = HBNBCommand()
+
+    def test_create_instance(self):
+        """ Test to review console output"""
+        output = io.StringIO()
+        sys.stdout = output
+        self.console.onecmd('create State id="123456" name="California"')
+        state_id = output.getvalue()
+        sys.stdout = sys.__stdout__
+        self.assertIn("123456", state_id)
