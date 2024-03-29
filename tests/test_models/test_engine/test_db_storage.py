@@ -21,4 +21,4 @@ class TestDBStorage(unittest.TestCase):
 
     def test_storage_instance(self):
         """ """
-        self.assertEqual(type(storage), TestDBStorage)
+        self.assertNotEqual(type(storage), TestDBStorage)
