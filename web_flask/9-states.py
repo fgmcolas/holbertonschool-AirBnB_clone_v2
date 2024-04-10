@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 """Script that starts a Flask web application"""
+
+
 from flask import Flask, render_template
 from models import storage
 from models.state import State
@@ -30,6 +32,6 @@ def display_state_id(id):
     return render_template('9-states.html')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     """Main function"""
     app.run(host='0.0.0.0', port=5000)
