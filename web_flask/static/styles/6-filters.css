@@ -18,7 +18,7 @@
 	border-right: 1px solid #DDDDDD;
 }
 
-.filter_amenities {
+.amenities {
 	display: inline;
 	vertical-align: middle;
 	height: 100%;
@@ -40,13 +40,18 @@
 
 	border: 1px solid #DDDDDD;
 	border-radius: 4px;
+
+	max-height: 300px;
+	overflow-y: scroll;
+	scrollbar-width: none;
 }
 
-.locations:hover .popover {
-	display: inline-block;
+.popover li {
+	padding-left: 20px;
 }
 
-.filter_amenities:hover .popover {
+.locations:hover > .popover,
+.amenities:hover > .popover {
 	display: inline-block;
 }
 
@@ -56,19 +61,16 @@ ul {
 	padding-bottom: 20px;
 }
 
-li {
-}	
-
 h2 {
 	font-size: 16px;
-	padding-left: 30px;
+	padding-left: 10px;
 	margin: 0px;
 }
 
 h3 {
 	font-weight: 600;
 	margin-top: 12px;
-	margin-bottom: 5px;	
+	margin-bottom: 5px;
 	padding-left: 45px;
 }
 
@@ -83,7 +85,7 @@ h4 {
 button {
 	color: #FFFFFF;
 	font-size: 18px;
-	
+
 	height: 48px;
 	width: 20%;
 	background-color: #FF5A5F;
@@ -99,3 +101,4 @@ button {
 button:hover {
 	opacity: 90%;
 }
+

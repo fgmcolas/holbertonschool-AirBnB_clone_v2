@@ -7,7 +7,7 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/web_flask/static')
 
 
 @app.teardown_appcontext
