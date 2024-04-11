@@ -29,7 +29,7 @@ def display_state(id):
         state_by_id = None
         for state in states:
             if state.id == id:
-                state_by_id == state
+                state_by_id = state
         return render_template('9-states.html', state=state_by_id, id=id)
     else:
         return render_template('9-states.html', states=states, id=id)
