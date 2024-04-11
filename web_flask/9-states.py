@@ -20,15 +20,19 @@ def display_states():
     return render_template('9-states.html', states=states)
 
 
+@app.route("/states/", defaults={"id": None}, strict_slashes=False)
 @app.route('/states/<id>', strict_slashes=False)
 def display_state(id):
     """Display a HTML page with details of a State object"""
     states = storage.all(State).values()
-    state = next((state for state in states if state.id == id), None)
-    if state:
-        return render_template('9-states.html', state=state)
+    if id:
+        state_by_id = None
+        for state in states:
+            if state.id == id:
+                state_by_id == state
+        return render_template('9-states.html', state=state_by_id, id=id)
     else:
-        return render_template('9-states.html', not_found=True)
+        return render_template('9-states.html', states=states, id=id)
 
 
 if __name__ == "__main__":
